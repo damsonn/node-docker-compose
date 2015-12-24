@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+console.log('Start to load data in mongodb');
+
+const app = require('../app');
+const mongoose = require('mongoose');
+const Article = mongoose.model('Article');
+
+const a1 = new Article({ title: 'The Force Awakens', body: 'This is the newest star wars.' });
+const a2 = new Article({ title: 'Episode 8', body: 'The next episode is set for release in May 2017' });
+
+var totalSaved = 0;
+function saved(err, obj) {
+  totalSaved++;
+  if (err) return console.error(err);
+  // disconnect if 2 are saved
+  if (totalSaved >= 2) {
+    console.log('all saved, disconnecting');
+    mongoose.disconnect();
+  }
+}
+
+a1.save(saved);
+a2.save(saved);

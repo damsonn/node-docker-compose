@@ -1,12 +1,24 @@
+require('dotenv').load();
 var express = require('express');
+var fs = require('fs');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+var models = path.join(__dirname, 'models');
+
+// Bootstrap models
+fs.readdirSync(models)
+  .filter(file => ~file.indexOf('.js'))
+  .forEach(file => require(path.join(models, file)));
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
+mongoose.connect(process.env.DB);
 
 var app = express();
 

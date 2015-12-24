@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const mongoose = require('mongoose');
+const router = express.Router();
+const Article = mongoose.model('Article');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  Article.find({}, (err, articles) => {
+    if (err) return res.render('500');
+    res.render('index', {
+      title: 'Articles',
+      articles: articles
+    });
+  });
 });
 
 module.exports = router;
