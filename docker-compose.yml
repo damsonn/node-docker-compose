@@ -9,9 +9,16 @@ app: &app_base
   command: node bin/www
   restart: always
   ports:
-    - "80:3000"
+    - "3000:3000"
   links:
     - db
   env_file: .env.docker
 
-# TODO add front web server
+nginx:
+  build: nginx
+  ports:
+    - "80:80"
+  links:
+    - app
+  volumes_from:
+    - app
