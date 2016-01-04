@@ -1,0 +1,17 @@
+db:
+  image: mongo
+  restart: always
+
+app: &app_base
+  build: .
+  volumes:
+    - /opt/app/public
+  command: node bin/www
+  restart: always
+  ports:
+    - "80:3000"
+  links:
+    - db
+  env_file: .env.docker
+
+# TODO add front web server
