@@ -6,6 +6,8 @@ This app uses the following stack:
 - node.js and express.js
 - MongoDB database
 - nginx frontend server
+- redis
+- Kue worker
 
 ## Prerequisites ##
 This required *docker*, *docker-machine* and *docker-compose* installed on your local machine. More informations on [Docker's website](https://docs.docker.com/installation/mac/)
@@ -33,7 +35,7 @@ docker-compose run --rm app node bin/load-data
 ## How can make sure it works ? ##
 1. first you need to know your `local` docker machine ip, using `docker-machine ls`.
 2. Visit http://LOCAL_IP
-3. Check app logs `docker-compose logs app`
+3. Check *app* or *worker* logs `docker-compose logs app` or `docker-compose logs worker`
 
 ## Tutum ##
 
@@ -44,7 +46,7 @@ The big news is [tutum](https://www.tutum.co/) has been [acquired by Docker](htt
 *docker compose* is not deemed production ready. There are some limitations, mainly related to scalability. But I think it is fine for small applications. It is obviously much better to understand how docker compose works.
 more info on [docker's website](https://docs.docker.com/compose/production/).
 
-This template doesn't include test or build scripts. This is on purpose, to keep focus what's important here (docker & production).
+This template doesn't include tests or a build script. This is on purpose, to keep focus what's important here (docker).
 
 ## Credits ##
 

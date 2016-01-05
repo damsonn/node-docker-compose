@@ -2,7 +2,11 @@ db:
   image: mongo
   restart: always
 
-app: &app_base
+redis:
+  image: redis
+  restart: always
+
+app:
   build: .
   volumes:
     - /opt/app/public
@@ -12,7 +16,20 @@ app: &app_base
     - "3000:3000"
   links:
     - db
+    - redis
   env_file: .env.docker
+  environment:
+    - DEBUG=node-docker-compose:server
+
+worker:
+  build: .
+  command: node worker.js
+  links:
+    - db
+    - redis
+  env_file: .env.docker
+  environment:
+    - DEBUG=node-docker-compose:worker
 
 nginx:
   build: nginx

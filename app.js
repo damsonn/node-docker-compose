@@ -8,19 +8,9 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-
-const models = path.join(__dirname, 'models');
-
-// Bootstrap models
-fs.readdirSync(models)
-  .filter(file => ~file.indexOf('.js'))
-  .forEach(file => require(path.join(models, file)));
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
-
-mongoose.connect(process.env.DB);
 
 const app = express();
 
@@ -70,5 +60,8 @@ app.use((err, req, res, next) => {
   });
 });
 
+
+// wire up Kue (see /active for queue interface)
+//app.use(kue.app);
 
 module.exports = app;

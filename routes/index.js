@@ -1,9 +1,11 @@
 'use strict';
 
 const express = require('express');
-const mongoose = require('mongoose');
+const mongoose = require('../config/mongoose');
 const router = express.Router();
+const queue = require('../config/kue');
 const Article = mongoose.model('Article');
+
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -14,6 +16,8 @@ router.get('/', (req, res, next) => {
       articles: articles
     });
   });
+  // create Kue job for stats processing
+  queue.create('process_stats', {}).save();
 });
 
 module.exports = router;

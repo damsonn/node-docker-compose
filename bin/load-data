@@ -2,8 +2,8 @@
 
 console.log('Start to load data in mongodb');
 
-const app = require('../app');
-const mongoose = require('mongoose');
+require('dotenv').config({silent: true});
+const mongoose = require('../config/mongoose');
 const Article = mongoose.model('Article');
 
 const a1 = new Article({ title: 'The Force Awakens', body: 'This is the newest star wars.' });
