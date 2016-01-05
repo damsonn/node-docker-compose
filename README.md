@@ -1,5 +1,5 @@
 # node-docker-compose
-A production oriented dockerized node.js/express.js app. Explained in more details on [my blog](http://damdev.me/docker/2016/1/6/docker-compose-node.html)
+A production oriented dockerized node.js/express.js app. Explained in more details on [my blog](http://damdev.me/docker/2016/01/05/docker-compose-node.html)
 
 ## Architecture ##
 This app uses the following stack:
@@ -18,7 +18,7 @@ This required *docker*, *docker-machine* and *docker-compose* installed on your 
 docker-machine create -d virtualbox local
 
 # create your config secrets
-cp .env.sample secrets.env
+cp .env.docker.sample .env.docker
 
 # load the docker env
 eval "$(docker-machine env local)"
@@ -32,7 +32,7 @@ docker-compose up -d
 docker-compose run --rm app node bin/load-data
 ```
 
-## How can make sure it works ? ##
+## How can I make sure it works ? ##
 1. first you need to know your `local` docker machine ip, using `docker-machine ls`.
 2. Visit http://LOCAL_IP
 3. Check *app* or *worker* logs `docker-compose logs app` or `docker-compose logs worker`
@@ -47,6 +47,8 @@ The big news is [tutum](https://www.tutum.co/) has been [acquired by Docker](htt
 more info on [docker's website](https://docs.docker.com/compose/production/).
 
 This template doesn't include tests or a build script. This is on purpose, to keep focus what's important here (docker).
+
+Because of the way user gets created at startup on the mongo container, There will be a few exceptions on the app upon first start.
 
 ## Credits ##
 

@@ -1,6 +1,7 @@
 db:
-  image: mongo
+  image: tutum/mongodb
   restart: always
+  env_file: .env.docker
 
 redis:
   image: redis

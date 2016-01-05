@@ -30,4 +30,5 @@ node_modules
 npm-debug.log
 
 # sensitive data
+.env.docker
 .env
